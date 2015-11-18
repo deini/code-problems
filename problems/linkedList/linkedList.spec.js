@@ -252,18 +252,123 @@ describe('containsValue()', () => {
   });
 });
 
-describe('indexOf()', () => {
+describe('containsNode()', () => {
+  it('should return true if the node exists in the list', () => {
+    const list = new LinkedList();
+    const testNode = new Node(1);
 
+    list.append(testNode);
+    list.append(new Node(2));
+
+    expect(list.containsNode(testNode)).toBe(true);
+  });
+
+  it('should return false if the node does not exists in the list', () => {
+    const list = new LinkedList();
+    const testNode = new Node(1);
+
+    list.append(new Node(1));
+    list.append(new Node(2));
+
+    expect(list.containsNode(testNode)).toBe(false);
+  });
 });
 
 describe('hasLoop()', () => {
+  it('should return false if the list has no loop', () => {
+    const list = new LinkedList();
 
+    list.append(new Node(1));
+    list.append(new Node(2));
+    list.append(new Node(3));
+
+    expect(list.hasLoop()).toBe(false);
+  });
+
+  it('should return the node where the loop starts', () => {
+    const list = new LinkedList();
+    const first = new Node(1);
+    const second = new Node(2);
+    const third = new Node(3);
+
+    third.next = second;
+
+    list.append(first);
+    list.append(second);
+    list.append(third);
+
+    expect(list.hasLoop()).toBe(second);
+  });
 });
 
-describe('intersection()', () => {
+describe('indexOf()', () => {
+  it('should return the correct index #', () => {
+    const list = new LinkedList();
+    const testNode = new Node(1);
 
+    expect(list.indexOf(testNode)).toBe(-1);
+
+    list.append(testNode);
+    expect(list.indexOf(testNode)).toBe(0);
+
+    list.prepend(new Node(2));
+    expect(list.indexOf(testNode)).toBe(1);
+
+    list.prepend(new Node(3));
+    expect(list.indexOf(testNode)).toBe(2);
+  });
 });
 
 describe('insertAt()', () => {
+  it('should be able to insert if the list is empty', () => {
+    const list = new LinkedList();
+    const testNode = new Node(1);
 
+    list.insertAt(0, testNode);
+
+    expect(list.head).toBe(testNode);
+    expect(list.size).toBe(1);
+  });
+
+  it('it should be able to insert in the beginning of the list', () => {
+    const list = new LinkedList();
+    const firstNode = new Node(1);
+    const secondNode = new Node(2);
+
+    list.append(secondNode);
+    list.insertAt(0, firstNode);
+
+    expect(list.head).toBe(firstNode);
+    expect(firstNode.next).toBe(secondNode);
+    expect(list.size).toBe(2);
+  });
+
+  it('it should be able to insert in the middle of the list', () => {
+    const list = new LinkedList();
+    const firstNode = new Node(1);
+    const secondNode = new Node(2);
+    const thirdNode = new Node(3);
+
+    list.append(firstNode);
+    list.append(thirdNode);
+    list.insertAt(1, secondNode);
+
+    expect(firstNode.next).toBe(secondNode);
+    expect(secondNode.next).toBe(thirdNode);
+    expect(list.size).toBe(3);
+  });
+
+  it('it should be able to insert in the end of the list', () => {
+    const list = new LinkedList();
+    const firstNode = new Node(1);
+    const secondNode = new Node(2);
+    const thirdNode = new Node(3);
+
+    list.append(firstNode);
+    list.append(secondNode);
+    list.insertAt(2, thirdNode);
+
+    expect(secondNode.next).toBe(thirdNode);
+    expect(list.size).toBe(3);
+  });
 });

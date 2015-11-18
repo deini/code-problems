@@ -230,8 +230,26 @@ describe('isPalindrome()', () => {
   });
 });
 
-describe('contains()', () => {
+describe('containsValue()', () => {
+  it('should return true if the value exists in the list', () => {
+    const list = new LinkedList();
 
+    list.append(new Node(1));
+    list.append(new Node(2));
+    list.append(new Node(3));
+
+    expect(list.containsValue(2)).toBe(true);
+  });
+
+  it('should return false if the value does not exists in the list', () => {
+    const list = new LinkedList();
+
+    list.append(new Node(1));
+    list.append(new Node(2));
+    list.append(new Node(3));
+
+    expect(list.containsValue(4)).toBe(false);
+  });
 });
 
 describe('indexOf()', () => {

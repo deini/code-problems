@@ -28,6 +28,20 @@ export class LinkedList {
     this.size += 1;
   }
 
+  containsValue(value) {
+    let current = this.head;
+
+    while (current) {
+      if (current.value === value) {
+        return true;
+      }
+
+      current = current.next;
+    }
+
+    return false;
+  }
+
   // We could do it with with this.size
   // But we also can do it with slow/fast strategy
   isPalindrome() {

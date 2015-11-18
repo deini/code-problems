@@ -100,6 +100,75 @@ describe('prepend()', () => {
   });
 });
 
+describe('remove', () => {
+  function expectNotToContain(head, node) {
+    let current = head;
+
+    while (current) {
+      expect(current).not.toBe(node);
+
+      current = current.next;
+    }
+  }
+
+  it('should remove the first node correctly', () => {
+    const first = new Node(1);
+    const list = new LinkedList();
+
+    list.append(first);
+    list.append(new Node(2));
+    list.append(new Node(3));
+
+    list.remove(first);
+
+    expectNotToContain(list.head, first);
+
+    expect(list.size).toBe(2);
+  });
+
+  it('should remove a middle node correctly', () => {
+    const list = new LinkedList();
+    const middle = new Node(2);
+
+    list.append(new Node(1));
+    list.append(middle);
+    list.append(new Node(3));
+
+    list.remove(middle);
+
+    expectNotToContain(list.head, middle);
+
+    expect(list.size).toBe(2);
+  });
+
+  it('should remove the last node correctly', () => {
+    const last = new Node(3);
+    const list = new LinkedList();
+
+    list.append(new Node(1));
+    list.append(new Node(2));
+    list.append(last);
+
+    list.remove(last);
+
+    expectNotToContain(list.head, last);
+
+    expect(list.size).toBe(2);
+  });
+
+  it('should remove correctly if there is just one node', () => {
+    const list = new LinkedList();
+    const lonely = new Node(1);
+
+    list.append(lonely);
+    list.remove(lonely);
+
+    expectNotToContain(list.head, lonely);
+
+    expect(list.size).toBe(0);
+  });
+});
+
 describe('unique()', () => {
   it('should remove duplicates and update size', () => {
     const list = new LinkedList();
@@ -159,6 +228,14 @@ describe('isPalindrome()', () => {
 
     expect(list.isPalindrome()).toBe(false);
   });
+});
+
+describe('contains()', () => {
+
+});
+
+describe('indexOf()', () => {
+
 });
 
 describe('hasLoop()', () => {

@@ -77,6 +77,34 @@ export class LinkedList {
     }
   }
 
+  remove(node) {
+    let current = this.head;
+    let prev = null;
+
+    if (!this.head) {
+      return;
+    }
+
+    if (this.head === node) {
+      this.head = this.head.next;
+      this.size -= 1;
+
+      return;
+    }
+
+    while (current) {
+      if (current === node) {
+        prev.next = current.next;
+
+        this.size -= 1;
+      } else {
+        prev = current;
+      }
+
+      current = current.next;
+    }
+  }
+
   unique() {
     const hash = {};
 

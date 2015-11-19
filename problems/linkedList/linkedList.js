@@ -28,6 +28,20 @@ export class LinkedList {
     this.size += 1;
   }
 
+  containsNode(node) {
+    let current = this.head;
+
+    while (current) {
+      if (current === node) {
+        return true;
+      }
+
+      current = current.next;
+    }
+
+    return false;
+  }
+
   containsValue(value) {
     let current = this.head;
 
@@ -40,6 +54,75 @@ export class LinkedList {
     }
 
     return false;
+  }
+
+  hasLoop() {
+    let fast = this.head;
+    let slow = this.head;
+
+    if (!this.head) {
+      return false;
+    }
+
+    fast = fast.next;
+
+    while (fast && fast.next) {
+      if (slow === fast) {
+        slow = this.head;
+
+        while (slow !== fast) {
+          slow = slow.next;
+          fast = fast.next.next;
+        }
+
+        return slow;
+      }
+
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+
+    return false;
+  }
+
+  indexOf(node) {
+    let current = this.head;
+    let index = 0;
+
+    while (current) {
+      if (current === node) {
+        return index;
+      }
+
+      current = current.next;
+      index += 1;
+    }
+
+    return -1;
+  }
+
+  insertAt(index, node) {
+    let current = this.head;
+
+    if (index < 0 || index > this.size) {
+      return;
+    }
+
+    if (index === 0) {
+      node.next = this.head;
+      this.head = node;
+      this.size += 1;
+
+      return;
+    }
+
+    for (let i = 0; i < index - 1; i++) {
+      current = current.next;
+    }
+
+    node.next = current.next;
+    current.next = node;
+    this.size += 1;
   }
 
   // We could do it with with this.size

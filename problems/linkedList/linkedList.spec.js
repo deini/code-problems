@@ -11,7 +11,7 @@ describe('append()', () => {
     list.append(new Node(2));
     list.append(lastNode);
 
-    let current = list.head;
+    let current = list._head;
 
     while (current.next) {
       current = current.next;
@@ -29,15 +29,15 @@ describe('append()', () => {
     list.append(node1);
     list.append(node2);
 
-    expect(list.head).toBe(node1);
-    expect(list.head.next).toBe(node2);
+    expect(list._head).toBe(node1);
+    expect(list._head.next).toBe(node2);
   });
 
   it('should not add a node if node is invalid', () => {
     const list = new LinkedList();
 
     list.append({});
-    expect(list.head).toBe(null);
+    expect(list._head).toBe(null);
   });
 
   it('should update the list size', () => {
@@ -47,7 +47,7 @@ describe('append()', () => {
     list.append(new Node(2));
     list.append(new Node(3));
 
-    expect(list.size).toBe(3);
+    expect(list._size).toBe(3);
   });
 });
 
@@ -147,8 +147,8 @@ describe('insertAt()', () => {
 
     list.insertAt(0, testNode);
 
-    expect(list.head).toBe(testNode);
-    expect(list.size).toBe(1);
+    expect(list._head).toBe(testNode);
+    expect(list._size).toBe(1);
   });
 
   it('it should be able to insert in the beginning of the list', () => {
@@ -159,9 +159,9 @@ describe('insertAt()', () => {
     list.append(secondNode);
     list.insertAt(0, firstNode);
 
-    expect(list.head).toBe(firstNode);
+    expect(list._head).toBe(firstNode);
     expect(firstNode.next).toBe(secondNode);
-    expect(list.size).toBe(2);
+    expect(list._size).toBe(2);
   });
 
   it('it should be able to insert in the middle of the list', () => {
@@ -176,7 +176,7 @@ describe('insertAt()', () => {
 
     expect(firstNode.next).toBe(secondNode);
     expect(secondNode.next).toBe(thirdNode);
-    expect(list.size).toBe(3);
+    expect(list._size).toBe(3);
   });
 
   it('it should be able to insert in the end of the list', () => {
@@ -190,7 +190,7 @@ describe('insertAt()', () => {
     list.insertAt(2, thirdNode);
 
     expect(secondNode.next).toBe(thirdNode);
-    expect(list.size).toBe(3);
+    expect(list._size).toBe(3);
   });
 });
 
@@ -235,15 +235,15 @@ describe('prepend()', () => {
     let testNode = new Node(1);
 
     list.prepend(testNode);
-    expect(list.head).toBe(testNode);
+    expect(list._head).toBe(testNode);
 
     testNode = new Node(2);
     list.prepend(testNode);
-    expect(list.head).toBe(testNode);
+    expect(list._head).toBe(testNode);
 
     testNode = new Node(3);
     list.prepend(testNode);
-    expect(list.head).toBe(testNode);
+    expect(list._head).toBe(testNode);
   });
 
   it('should not break the list', () => {
@@ -255,15 +255,15 @@ describe('prepend()', () => {
     list.prepend(node1);
     list.prepend(node2);
 
-    expect(list.head).toBe(node2);
-    expect(list.head.next).toBe(node1);
+    expect(list._head).toBe(node2);
+    expect(list._head.next).toBe(node1);
   });
 
   it('should not add a node if node is invalid', () => {
     const list = new LinkedList();
 
     list.prepend({});
-    expect(list.head).toBe(null);
+    expect(list._head).toBe(null);
   });
 
   it('should update the list size', () => {
@@ -273,7 +273,7 @@ describe('prepend()', () => {
     list.prepend(new Node(2));
     list.prepend(new Node(3));
 
-    expect(list.size).toBe(3);
+    expect(list._size).toBe(3);
   });
 });
 
@@ -298,9 +298,9 @@ describe('remove', () => {
 
     list.remove(first);
 
-    expectNotToContain(list.head, first);
+    expectNotToContain(list._head, first);
 
-    expect(list.size).toBe(2);
+    expect(list._size).toBe(2);
   });
 
   it('should remove a middle node correctly', () => {
@@ -313,9 +313,9 @@ describe('remove', () => {
 
     list.remove(middle);
 
-    expectNotToContain(list.head, middle);
+    expectNotToContain(list._head, middle);
 
-    expect(list.size).toBe(2);
+    expect(list._size).toBe(2);
   });
 
   it('should remove the last node correctly', () => {
@@ -328,9 +328,9 @@ describe('remove', () => {
 
     list.remove(last);
 
-    expectNotToContain(list.head, last);
+    expectNotToContain(list._head, last);
 
-    expect(list.size).toBe(2);
+    expect(list._size).toBe(2);
   });
 
   it('should remove correctly if there is just one node', () => {
@@ -340,9 +340,9 @@ describe('remove', () => {
     list.append(lonely);
     list.remove(lonely);
 
-    expectNotToContain(list.head, lonely);
+    expectNotToContain(list._head, lonely);
 
-    expect(list.size).toBe(0);
+    expect(list._size).toBe(0);
   });
 });
 
@@ -357,7 +357,7 @@ describe('unique()', () => {
     list.prepend(new Node(1));
     list.unique();
 
-    let current = list.head;
+    let current = list._head;
 
     while (current) {
       const value = current.value;
@@ -369,6 +369,6 @@ describe('unique()', () => {
       current = current.next;
     }
 
-    expect(list.size).toBe(2);
+    expect(list._size).toBe(2);
   });
 });

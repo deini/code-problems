@@ -2,8 +2,8 @@ import { Node } from './node';
 
 export class LinkedList {
   constructor() {
-    this.head = null;
-    this.size = 0;
+    this._size = 0;
+    this._head = null;
   }
 
   append(node) {
@@ -11,25 +11,25 @@ export class LinkedList {
       return;
     }
 
-    if (!this.head) {
-      this.head = node;
-      this.size += 1;
+    if (!this._head) {
+      this._head = node;
+      this._size += 1;
 
       return;
     }
 
-    let current = this.head;
+    let current = this._head;
 
     while (current.next) {
       current = current.next;
     }
 
     current.next = node;
-    this.size += 1;
+    this._size += 1;
   }
 
   containsNode(node) {
-    let current = this.head;
+    let current = this._head;
 
     while (current) {
       if (current === node) {
@@ -43,7 +43,7 @@ export class LinkedList {
   }
 
   containsValue(value) {
-    let current = this.head;
+    let current = this._head;
 
     while (current) {
       if (current.value === value) {
@@ -56,11 +56,19 @@ export class LinkedList {
     return false;
   }
 
-  hasLoop() {
-    let fast = this.head;
-    let slow = this.head;
+  getHead() {
+    return this._head;
+  }
 
-    if (!this.head) {
+  getSize() {
+    return this._size;
+  }
+
+  hasLoop() {
+    let fast = this._head;
+    let slow = this._head;
+
+    if (!this._head) {
       return false;
     }
 
@@ -68,7 +76,7 @@ export class LinkedList {
 
     while (fast && fast.next) {
       if (slow === fast) {
-        slow = this.head;
+        slow = this._head;
 
         while (slow !== fast) {
           slow = slow.next;
@@ -86,7 +94,7 @@ export class LinkedList {
   }
 
   indexOf(node) {
-    let current = this.head;
+    let current = this._head;
     let index = 0;
 
     while (current) {
@@ -102,16 +110,16 @@ export class LinkedList {
   }
 
   insertAt(index, node) {
-    let current = this.head;
+    let current = this._head;
 
-    if (index < 0 || index > this.size) {
+    if (index < 0 || index > this._size) {
       return;
     }
 
     if (index === 0) {
-      node.next = this.head;
-      this.head = node;
-      this.size += 1;
+      node.next = this._head;
+      this._head = node;
+      this._size += 1;
 
       return;
     }
@@ -122,16 +130,16 @@ export class LinkedList {
 
     node.next = current.next;
     current.next = node;
-    this.size += 1;
+    this._size += 1;
   }
 
-  // We could do it with with this.size
+  // We could do it with with this._size
   // But we also can do it with slow/fast strategy
   isPalindrome() {
     const stack = [];
 
-    let fast = this.head;
-    let slow = this.head;
+    let fast = this._head;
+    let slow = this._head;
 
     while (fast && fast.next) {
       stack.push(slow.value);
@@ -160,13 +168,13 @@ export class LinkedList {
       return;
     }
 
-    node.next = this.head;
-    this.head = node;
-    this.size += 1;
+    node.next = this._head;
+    this._head = node;
+    this._size += 1;
   }
 
   print() {
-    let current = this.head;
+    let current = this._head;
 
     while (current) {
       console.log(current.value);
@@ -175,16 +183,16 @@ export class LinkedList {
   }
 
   remove(node) {
-    let current = this.head;
+    let current = this._head;
     let prev = null;
 
-    if (!this.head) {
+    if (!this._head) {
       return;
     }
 
-    if (this.head === node) {
-      this.head = this.head.next;
-      this.size -= 1;
+    if (this._head === node) {
+      this._head = this._head.next;
+      this._size -= 1;
 
       return;
     }
@@ -193,7 +201,7 @@ export class LinkedList {
       if (current === node) {
         prev.next = current.next;
 
-        this.size -= 1;
+        this._size -= 1;
       } else {
         prev = current;
       }
@@ -206,14 +214,14 @@ export class LinkedList {
     const hash = {};
 
     let prev = null;
-    let current = this.head;
+    let current = this._head;
 
     while (current) {
       const value = current.value;
 
       if (hash[value]) {
         prev.next = current.next;
-        this.size -= 1;
+        this._size -= 1;
       } else {
         hash[value] = true;
         prev = current;
